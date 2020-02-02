@@ -9,11 +9,14 @@
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm start\" \"npm run client\"",
+    "postinstall":"tsc",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+  },
+  "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/compression": "^1.0.1",
     "@types/cors": "^2.8.6",
@@ -29,9 +32,7 @@
     "ts-jest": "^25.0.0",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.7.5"
-  },
-  "dependencies": {
+    "typescript": "^3.7.5",
     "@hapi/joi": "^17.1.0",
     "@types/supertest": "^2.0.8",
     "bcrypt": "^3.0.7",
