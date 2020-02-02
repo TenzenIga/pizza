@@ -7,15 +7,16 @@ import { ProductsProvider } from './context/productContext';
 import {BrowserRouter as Router  } from "react-router-dom";
 import { CartProvider } from './context/cartContext';
 import { UserProvider } from './context/userContext';
-ReactDOM.render(<ProductsProvider>
+ReactDOM.render(
+<Router>
+<ProductsProvider>
         <CartProvider>
-            <UserProvider>
-                <Router>
+            <UserProvider>   
                     <App />
-                </Router>
             </UserProvider>
         </CartProvider>
-    </ProductsProvider>, document.getElementById('root'));
+    </ProductsProvider>
+    </Router>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
