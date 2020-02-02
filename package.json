@@ -9,7 +9,7 @@
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && SKIP_PREFLIGHT_CHECK=true npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"  
   },
   "author": "",
   "license": "ISC",
@@ -34,7 +34,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
-    "jest": "^25.1.0",
+    "jest": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "supertest": "^4.0.2",
