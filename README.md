@@ -7,14 +7,14 @@ cd ./client npm install</b>
 
 <h3>Before running set Environment viriables</h3>
 
-DB_HOST=remotemysql.com
-DB_USER_PRODUCTION=*	
-DB_PASSWORD_PRODUCTION=*
-DB_USER_DEVELOPMENT=*	
-DB_PASSWORD_DEVELOPMENT=*
-DB_USER_TEST=*
-DB_PASSWORD_TEST=*
-jwtPrivateKey=*
+<p>DB_HOST=remotemysql.com</p>
+<p>DB_USER_PRODUCTION=*</p>	
+<p>DB_PASSWORD_PRODUCTION=*</p>
+<p>DB_USER_DEVELOPMENT=*	</p>
+<p>DB_PASSWORD_DEVELOPMENT=*</p>
+<p>DB_USER_TEST=*</p>
+<p>DB_PASSWORD_TEST=*</p>
+<p>jwtPrivateKey=*</p>
 
 <b>npm run dev</b>  - to run both backend and client  in development
 
