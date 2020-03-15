@@ -1,4 +1,1 @@
-{"level":"error","message":"Pool is closed."}
-{"level":"error","message":"Pool is closed."}
-{"level":"error","message":"Pool is closed."}
-{"level":"error","message":"Pool is closed."}
+{"code":"ER_NO_REFERENCED_ROW_2","errno":1452,"sqlMessage":"Cannot add or update a child row: a foreign key constraint fails (`pizza`.`orders`, CONSTRAINT `uid` FOREIGN KEY (`user_id`) REFERENCES `users` (`uid`) ON DELETE RESTRICT ON UPDATE CASCADE)","sqlState":"23000","index":0,"sql":"INSERT INTO orders( user_id, order_date )\n    VALUES(444, NOW())","level":"error"}

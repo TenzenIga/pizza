@@ -11,12 +11,10 @@ import server from "../../index";
 
 describe('/products',()=>{
     afterEach( async ()=>{
-      
         server.close();
         await pool.query('DELETE FROM orders')
         await pool.query('DELETE FROM products')
         await pool.query('DELETE FROM users')
-        
     })
 
     afterAll(()=>{
@@ -26,10 +24,10 @@ describe('/products',()=>{
     describe('GET /', ()=>{
         it('should return all products', async ()=>{
             await pool.query(`INSERT INTO products
-            ( name, price, img )
+            ( name, description, price, img )
         VALUES 
-            ('pizza 1', 20, 'imglink'),
-            ('pizza 2', 32, 'imglink');
+            ('pizza 1','desc', 20, 'imglink'),
+            ('pizza 2','desc',45, 'imglink');
           `)
           const res = await request(server).get('/products');
             expect(res.status).toBe(200);

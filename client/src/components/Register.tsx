@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import { Form, Button, Alert } from "react-bootstrap";
 
 
 type FormData = {
@@ -15,7 +16,7 @@ type FormData = {
 export default function Register() {
   const [error, setError] = useState('')
   const [redirect, setRedirect] = useState(false)
-  const { register, handleSubmit, errors } = useForm<FormData>();
+  const { register, handleSubmit } = useForm<FormData>();
   const onSubmit = handleSubmit(({ name, email, password }) => {
     axios.post('/users', {username:name, email, password})
     .then((response) => {
@@ -28,25 +29,31 @@ if(redirect){
     return <Redirect to='/login' />
 }
  return (
-    
-    <div className='form register-form'>
-    <form onSubmit={onSubmit}>
-    {error && <p className='error'>{error}</p>}
-      <label>Username</label>
-      <input name="name" ref={register({required:true})} />
-      {errors.name && <p className='error'>First name is required</p>}
-      <label>Email</label>
-      <input name="email"  ref={register({pattern:/\S+@\S+\.\S+/})} />
-      {errors.email && <p className='error'>First name is required</p>}
-      <label>Password</label>
-      <input name="password" type='password' ref={register} />
-      <button
-        type="submit"
-      >
-        Register
-      </button>
-    </form>
-    </div>
+  <Form  onSubmit={onSubmit} >
+    {error && 
+     <Alert variant='danger'>
+     {error}
+     </Alert>}
+    <Form.Group controlId="name">
+    <Form.Label>Username</Form.Label>
+    <Form.Control name='name' type="Username" placeholder="Enter Username" ref={register} />
+  </Form.Group>
+  <Form.Group controlId="email">
+    <Form.Label>Email address</Form.Label>
+    <Form.Control name='email' type="email" placeholder="Enter email" ref={register} />
+    <Form.Text className="text-muted">
+      We'll never share your email with anyone else.
+    </Form.Text>
+  </Form.Group>
+  <Form.Group controlId="password">
+    <Form.Label>Password</Form.Label>
+    <Form.Control name='password' type="password" ref={register} placeholder="Password" />
+  </Form.Group>
+  <Button variant="primary" type="submit">
+  Register
+  </Button>
+</Form>
+
   );
 }
 

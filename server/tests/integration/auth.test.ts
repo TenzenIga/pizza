@@ -1,6 +1,5 @@
 import request from 'supertest';
 
-import PromisifiedPool from '../../interfaces/promise';
 import pool from '../../startup/db';
 import key from '../../startup/config';
 import jwt from 'jsonwebtoken';

@@ -15,8 +15,7 @@ const schema = Joi.object({
         .email()
         .required(),
     password:Joi.string()
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
-        .required(),
+        .required()
 })
 
 router.post('/', asyncMiddleware(async(req:Request, res:Response)=>{
@@ -29,7 +28,7 @@ router.post('/', asyncMiddleware(async(req:Request, res:Response)=>{
     const validPassword = await bcrypt.compare(req.body.password, user[0].password)
     if(!validPassword) return res.status(400).send('Неправильный email или пароль.')
     const token = jwt.sign({uid: user[0].uid, username: user[0].username, admin: user[0].isAdmin }, key )
-    res.status(200).send(token)
+    res.status(200).send({token:token, user: {username:user[0].username, uid:user[0].uid, admin:user[0].isAdmin }})
    
 }))
 export default router

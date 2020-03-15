@@ -8,10 +8,14 @@ env.config();
 const envString = process.env.NODE_ENV?.toUpperCase()
 
 const pool: PromisifiedPool = mysql.createPool({
+    // host:"localhost",
+    // user:"root",
+    // password:"azer1408",
+    // database:"pizza",
     host:process.env.DB_HOST,
     user:process.env['DB_USER_' + envString],
     password:process.env['DB_PASSWORD_' + envString],
-    database:process.env['DB_USER_' + envString],
+    database:process.env.DB_NAME,
     port: 3306
 })
 pool.getConnection((err, connection) => {

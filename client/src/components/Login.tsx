@@ -1,45 +1,68 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import axios from 'axios';
-import { UserContext } from "../context/userContext";
+import { Link, Redirect } from "react-router-dom";
+import { bindActionCreators, Dispatch } from "redux";
+import { loadUser } from "../store/user/actions";
+import { IStore, IUser } from "../interface/interface";
+import { connect } from "react-redux";
+import { Form, Button, Alert } from "react-bootstrap";
+
 type FormData = {
   email: string;
   password:string;
 };
 
+type userProps = {
+  user:IUser
+  loadUser:Function
+};
 
-export default function Register() {
-  const {auth} = useContext(UserContext);
-  const [error, setError] = useState('')
-  const { register,  handleSubmit, errors } = useForm<FormData>();
-  const onSubmit = handleSubmit(({ email, password }) => {
-    axios.post('/auth', { email, password}
-     )
-     .then(response => {
-         auth(response.data)
-     }, (error) => {
-        setError(error.response.data);
-  });
+function Login(props:userProps) {
+  const {loadUser, user} = props;
+
+  const { register,  handleSubmit } = useForm<FormData>();
+  const onSubmit = handleSubmit(({email, password})=>{
+      loadUser({email, password})
   })
+  if(user.isLoggedIn){
+    return <Redirect to='/userpage' />
+  }
+  
   
   return (
-    <div className='form login-form'>
-    <form onSubmit={onSubmit}>
-    {error && <p className='error'>{error}</p>}
-      <label>Email</label>
-      <input name="email"  ref={register({required:true})} />
-      {errors.email && <p className='error'>email is required</p>}
-      <label>Password</label>
-      <input name="password" type='password' ref={register} />
-      <button
-        type="submit"
-      >
-        Login
-      </button>
-    <p>Don't have an account? <Link to='/register'>Register</Link></p>
-    </form>
-    </div>
+    <Form  onSubmit={onSubmit} >
+       {user.error && 
+     <Alert variant='danger'>
+     {user.error}
+     </Alert>}
+  <Form.Group controlId="email">
+    <Form.Label>Email address</Form.Label>
+    <Form.Control name='email' type="email" placeholder="Enter email" ref={register} />
+  </Form.Group>
+
+  <Form.Group controlId="password">
+    <Form.Label>Password</Form.Label>
+    <Form.Control name='password' type="password" ref={register} placeholder="Password" />
+  </Form.Group>
+  <Button variant="primary" type="submit">
+  Login
+  </Button>
+  <Form.Text className="text-muted">
+      Don't have an account? <Link to='/register'>Register</Link>
+    </Form.Text>
+</Form>
   );
 }
+
+
+
+const mapStateToProps = (state:IStore) =>({
+  user:state.user
+});
+const mapDispatchToProps = (dispatch:Dispatch) => {
+  return{
+      loadUser:bindActionCreators(loadUser, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
