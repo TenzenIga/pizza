@@ -33,8 +33,6 @@ const fetchProducts = () => {
       try {
         const res = yield call(authRequest, data.payload)
         if(res){
-            console.log(res.data);
-            
             yield put(loginSuccess({token:res.data.token, user:res.data.user})) 
             localStorage.setItem('token', res.data.token)
             localStorage.setItem('uid', res.data.user.uid)
