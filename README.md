@@ -7,7 +7,7 @@ cd ./client npm install</b>
 
 <h3>Before running set Environment viriables</h3>
 
-<p>DB_HOST=remotemysql.com</p>
+<p>DB_HOST=</p>
 <p>DB_USER_PRODUCTION=*</p>	
 <p>DB_PASSWORD_PRODUCTION=*</p>
 <p>DB_USER_DEVELOPMENT=*	</p>
