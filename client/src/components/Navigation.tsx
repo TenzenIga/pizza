@@ -1,21 +1,23 @@
 import React from 'react';
-import { IUser, IStore } from '../interface/interface';
+import { IUser, IStore, ICart } from '../interface/interface';
 import { connect } from 'react-redux';
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar, Nav, Badge} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart,faUser,faPizzaSlice } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart,faUser,faPizzaSlice, faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import { LinkContainer } from 'react-router-bootstrap';
 import { logOut } from '../store/user/actions';
 import { Dispatch, bindActionCreators } from 'redux';
 
 type navbarProps = {
   user:IUser,
+  cart:ICart[],
   logOut:Function
 };
 
  function Navigation(props:navbarProps) {
-    const {user, logOut} = props
-    
+    const {user,cart, logOut} = props
+    const itemsCount = cart.reduce((acc:number, current:ICart)=> acc + current.quantity, 0);
+
     const handleLogout = ()=>{
       localStorage.clear();
       logOut();
@@ -31,7 +33,9 @@ type navbarProps = {
           <Nav className='ml-auto'>
           <LinkContainer to='/cart'>
             <Nav.Link>
-              <FontAwesomeIcon icon={faShoppingCart} />
+              {
+                cart.length > 0 ? <div className='cart-icon__wrapper' ><FontAwesomeIcon icon={faCartPlus} />{' '}<Badge variant="info">{itemsCount}</Badge></div> : <FontAwesomeIcon icon={faShoppingCart} />
+              }
             </Nav.Link>
           </LinkContainer>
          {user.isLoggedIn ? 
@@ -59,6 +63,7 @@ type navbarProps = {
 }
 
 const mapStateToProps = (state:IStore) =>({
+  cart:state.cart,
   user:state.user
 });
 

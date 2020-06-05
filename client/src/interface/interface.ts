@@ -2,8 +2,13 @@ export interface IStore{
   cart:ICart[] 
   products:ProductsState
   user:IUser
+  exchange:CurrencyState
 }
 
+export interface CurrencyState{
+  exchangeRate:null | number
+  error:null | string
+}
 
 
 export interface ProductsState{
@@ -18,7 +23,7 @@ export interface IProduct{
     description:string
     price:number
     img:string
-  }
+}
 
 
 export interface IAction{
@@ -35,9 +40,10 @@ export interface IUser{
   isAdmin:boolean
   }
   
-  export interface ICart extends IProduct{
+export interface ICart extends IProduct{
     quantity:number
-  }
+}
+
 export interface IOrder{
   order_id:number
   quantity: number

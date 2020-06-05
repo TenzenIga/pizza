@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { loadUser } from './store/user/actions';
 import { Container } from 'react-bootstrap';
 
+
 type AppProps = {
   products:ProductsState,
   cart:ICart[],
@@ -27,17 +28,25 @@ type AppProps = {
 }
 
 const App = (props:AppProps) => {
-  const {products, cart,addToCart, loadProducts, increment} = props
-  useEffect( ()=>{
+  const {products, cart,addToCart, loadProducts, increment} = props;
+
+  
+  useEffect( ()=>{    
     loadProducts()
-  },[])
+  },[loadProducts])
     
   return (
     <div className="App">
       <Navigation />
       <Container>
       <Switch>
-              <Route path="/" exact render={(props) => < ProductList {...props} products={products.products} cart={cart} addToCart={addToCart} increment={increment}  /> } />
+              <Route path="/" exact render={
+                (props) =>
+                 <ProductList {...props}
+                  products={products.products}
+                  cart={cart} addToCart={addToCart}
+                  increment={increment}  />
+                } />
               <Route path="/products/:id" component={ProductPage} />
               <Route path="/cart" component={Cart} />
               <Route path="/login" component={Login} />
@@ -61,7 +70,8 @@ const mapDispatchToProps = (dispatch:Dispatch) => {
       loadProducts:bindActionCreators(loadProducts, dispatch),
       addToCart:bindActionCreators(addToCart, dispatch),
       increment:bindActionCreators(increment, dispatch),
-      loadUser:bindActionCreators(loadUser, dispatch)
+      loadUser:bindActionCreators(loadUser, dispatch),
+      
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App);

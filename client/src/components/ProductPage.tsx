@@ -49,7 +49,7 @@ function ProductPage(props:ProductPageProps){
 
     useEffect(() => {
         fetchProduct(`/products/${id}`)
-    }, [])
+    }, [id])
 
     return (
         <div className='text-center'>

@@ -29,6 +29,15 @@ form{
   width: 500px;
   margin: 100px auto;
 }
-@media screen and (max-width:310px){
 
+/* .cart-icon__wrapper{
+  position: relative;
 }
+
+.cart-icon__wrapper span{
+  bottom: 0;
+  left: 50%;
+  font-size: 9px;
+  padding: .15em 0.45em;
+  position: absolute;
+} */
